@@ -18,7 +18,7 @@ s = ''
 
 def format_to_file():
 	global s
-	f = open('text.txt','w+')
+	f = open('ouput.txt','w+')
 	formatted = ''
 	for a in s:
 		if a=='~':
@@ -27,7 +27,7 @@ def format_to_file():
 			formatted+='\n'
 		else:
 			formatted+=a
-
+	print(formatted)
 	f.write(formatted)
 	f.flush()
 	f.close()
@@ -119,6 +119,7 @@ def do_keypress(img, center, row_keys_points):
 		arr2 = list(np.int0(np.array(center) <= np.array(row[2])))            # center of the contour has less value than the bottom right corner point of a key 
 		if arr1 == [1, 1] and arr2 == [1, 1]:
 			if(row[0][0]=='$'):
+				format_to_file()
 				exit(0)
 			gui.press(row[0])
 			print(row[0][0])
@@ -203,4 +204,4 @@ def main():
 	cam.release()
 	cv2.destroyAllWindows()
 main()
-format_to_file()
+

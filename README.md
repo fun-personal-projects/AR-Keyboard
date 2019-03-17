@@ -6,6 +6,7 @@ A random color is chosen and made into a physical pointer. The color of this is 
 When the video camera is switched on, the input frames are also thresholded so that the only input the program receives is the pointer. 
 The location of the pointer is then tracked. Every time the pointer stays above a key for a given interval, the key is clicked and the input is saved. 
 
+*First run range_det.py to for the pointer color*
 ## Progress
 - A single finger input has been created. 
 
