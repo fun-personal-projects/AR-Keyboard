@@ -57,7 +57,7 @@ def get_keys():
 		x1 += key_width
 		x2 += key_width
 		c += 1
-	x1, y1 = c1, c2    
+	x1, y1 = c1, c2
 
 	x1, y1 = int((row0_key_width - row1_key_width) / 2) + x1, y1 + key_width    # 4 is due to the fact that we will have 4 rows. y1 is set such that the whole keyboard has equal margin on both top and bottom
 	x2, y2 = key_width + x1, key_width + y1
@@ -69,11 +69,11 @@ def get_keys():
 		x1 += key_width
 		x2 += key_width
 		c += 1
-	x1, y1 = c1, c2        
+	x1, y1 = c1, c2
 	# for second row
 	x1, y1 = int((row1_key_width - row2_key_width) / 2) + x1, y1 + key_width   # x1 is set such that it leaves equal margin on both left and right side
 	x2, y2 = key_width + x1, key_width + y1
-	c1, c2 = x1, y1    
+	c1, c2 = x1, y1
 	c = 0
 	keys = "asdfghjkl"
 	for i in range(len(keys)):
@@ -85,8 +85,8 @@ def get_keys():
 
 	# for third row
 	x1, y1 = int((row2_key_width - row3_key_width) / 2) + x1, y1 + key_width
-	x2, y2 = key_width + x1, key_width + y1    
-	c1, c2 = x1, y1    
+	x2, y2 = key_width + x1, key_width + y1
+	c1, c2 = x1, y1
 	c = 0
 	keys = "zxcvbnm~|$"
 	for i in range(len(keys)):
@@ -98,8 +98,8 @@ def get_keys():
 
 	# for the space bar
 	x1, y1 = int((row3_key_width - row4_key_width) / 2) + x1, y1 + key_width
-	x2, y2 = 5 * key_width + x1, key_width + y1    
-	c1, c2 = x1, y1    
+	x2, y2 = 5 * key_width + x1, key_width + y1
+	c1, c2 = x1, y1
 	c = 0
 	keys = " "
 	for i in range(len(keys)):
@@ -115,8 +115,8 @@ def do_keypress(img, center, row_keys_points):
 	global s
 	# this fuction presses a key and marks the pressed key with blue color
 	for row in row_keys_points:
-		arr1 = list(np.int0(np.array(center) >= np.array(row[1])))            # center of the contour has greater value than the top left corner point of a key 
-		arr2 = list(np.int0(np.array(center) <= np.array(row[2])))            # center of the contour has less value than the bottom right corner point of a key 
+		arr1 = list(np.int0(np.array(center) >= np.array(row[1])))            # center of the contour has greater value than the top left corner point of a key
+		arr2 = list(np.int0(np.array(center) <= np.array(row[2])))            # center of the contour has less value than the bottom right corner point of a key
 		if arr1 == [1, 1] and arr2 == [1, 1]:
 			if(row[0][0]=='$'):
 				format_to_file()
@@ -150,16 +150,16 @@ def main():
 
 		if len(contours) > 0:
 			cnt = max(contours, key = cv2.contourArea)
-			
+
 			if cv2.contourArea(cnt) > 350:
-				# draw a rectangle and a center 
+				# draw a rectangle and a center
 				rect = cv2.minAreaRect(cnt)
 				center = list(rect[0])
 				box = cv2.boxPoints(rect)
 				box = np.int0(box)
 				cv2.circle(img, tuple(np.int0(center)), 2, (0, 255, 0), 2)
 				cv2.drawContours(img,[box],0,(0,0,255),2)
-				
+
 				# calculation of difference of area and center
 				new_area = cv2.contourArea(cnt)
 				new_center = np.int0(center)
@@ -182,6 +182,7 @@ def main():
 				area_threshold = 200
 				if abs(diff_center[0]) < center_threshold or abs(diff_center[1]) < center_threshold:
 					if diff_area > area_threshold and flag_keypress == False:
+						# time.sleep
 						img = do_keypress(img, new_center, row_keys_points)
 						flag_keypress = True
 					elif diff_area < -(area_threshold) and flag_keypress == True:
@@ -197,7 +198,7 @@ def main():
 			cv2.rectangle(img, key[1], key[2], (255, 255, 0), thickness = 2)
 
 		cv2.imshow("img", img)
-		
+
 		if cv2.waitKey(1) == ord('q'):
 			break
 
